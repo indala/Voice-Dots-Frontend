@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { Sidebar } from "@/components/Sidebar";
+import { SidebarProvider,SidebarTrigger } from "@/components/ui/sidebar"
+import { Sidebar1 } from "@/components/AppSidebar";
+import { cookies } from "next/headers";
+
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,28 +21,43 @@ export const metadata: Metadata = {
   description: "Advanced Voice Agent Platform",
 };
 
-export default function RootLayout({
+export async function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) 
+{
+  const cookieStore=cookies()
+  const defaultOpen=(await cookieStore).get("sidebar_state")?.value==="true"
   return (
     <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
       >
-        <div className="h-full relative flex overflow-hidden bg-background">
-          {/* Sidebar */}
-          <div className="hidden h-full md:flex md:w-72 md:flex-col md:fixed md:inset-y-0 z-80">
-            <Sidebar />
-          </div>
+        
+          <SidebarProvider defaultOpen={defaultOpen}>
+             
+            <Sidebar1></Sidebar1>
+            
+
+          
+        
 
           {/* Main Content */}
-          <main className="md:pl-72 flex-1 h-full overflow-y-auto">
+          
+          <main className=" overflow-y-auto w-full relative">
+            <SidebarTrigger className="block sm:hidden absolute z-50 " size="lg"  />
+            
+                       
+
             {children}
           </main>
-        </div>
+          
+          </SidebarProvider>
+          
+       
       </body>
     </html>
   );
 }
+export default RootLayout
