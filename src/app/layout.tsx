@@ -3,7 +3,6 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SidebarProvider,SidebarTrigger } from "@/components/ui/sidebar"
 import { Sidebar1 } from "@/components/AppSidebar";
-import { cookies } from "next/headers";
 
 
 const geistSans = Geist({
@@ -27,15 +26,14 @@ export async function RootLayout({
   children: React.ReactNode;
 }) 
 {
-  const cookieStore=cookies()
-  const defaultOpen=(await cookieStore).get("sidebar_state")?.value==="true"
+  
   return (
     <html lang="en" className="dark">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased h-full`}
       >
         
-          <SidebarProvider defaultOpen={defaultOpen}>
+          <SidebarProvider >
              
             <Sidebar1></Sidebar1>
             
@@ -47,9 +45,6 @@ export async function RootLayout({
           
           <main className=" overflow-y-auto w-full relative">
             <SidebarTrigger className="block sm:hidden absolute z-50 " size="lg"  />
-            
-                       
-
             {children}
           </main>
           
