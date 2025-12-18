@@ -18,7 +18,7 @@ import {
 const routes= [
   { label: "Home", icon: Home, href: "/", color: "text-sky-500" },
   { label: "Dashboard", icon: LayoutDashboard, href: "/dashboard", color: "text-orange-700" },
-  { label: "Calls", icon: Phone, href: "/calls", color: "text-emerald-500", badge: 3 },
+  { label: "Calls", icon: Phone, href: "/calls", color: "text-emerald-500", badge: 115 },
   { label: "Notifications", icon: Bell, href: "/notifications", color: "text-red-500", badge: 3 },
 
   {
